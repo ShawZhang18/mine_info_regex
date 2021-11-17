@@ -319,7 +319,6 @@ def resultToCsvPerProcess(i_nianfen, f_csv):
         result_everyRow.append(刑罚情况_result)
         result_everyRow.append(get缓刑(word_text))
 
-        rows.append(result_everyRow)
         f_csv.writerow(result_everyRow)
         # print(result_everyRow)
 
@@ -330,8 +329,6 @@ if __name__ == "__main__":
     f = open('qiye.csv','w',newline='')
     f_csv = csv.writer(f)
     f_csv.writerow(headers)
-
-    rows = []
 
     thread_lock = threading.RLock()
     for i in nianfen:
