@@ -30,6 +30,12 @@ def test谅解结果():
     result = get谅解结果(test_string)
     print(result)
 
+def testZishu():
+    testString = "开始双方就谅解达成一致结束"
+    regex_string = "开始.{9,9}结束"
+    test_result = re.search(pattern=regex_string, string=testString, flags=0)
+    print(test_result)
+
 from read_docx import *
 if __name__ == "__main__":
-    test刑罚情况()
+    testZishu()
