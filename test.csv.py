@@ -36,6 +36,6 @@ def testZishu():
     test_result = re.search(pattern=regex_string, string=testString, flags=0)
     print(test_result)
 
-from read_docx import *
+from docx_multiThread import *
 if __name__ == "__main__":
     testZishu()

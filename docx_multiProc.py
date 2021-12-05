@@ -1,4 +1,4 @@
-from read_docx import *
+from docx_multiThread import *
 
 def resultToCsvPerProcess(i_nianfen):
     import csv
