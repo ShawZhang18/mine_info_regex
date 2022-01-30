@@ -2,7 +2,7 @@ import os
 import re
 import chardet
 
-from regex_expression import *
+from regex_expression_danju import *
 
 root_path = "./word"
 
@@ -12,6 +12,8 @@ def get案例名(文件名):
 
 # 对于只需要匹配关键词的直接使用正则表达式判断匹配结果
 #1伤害结果、3有无赔偿、7悔罪态度和表现、8谅解、13持械、14手段残忍、17自首、18坦白、19立功、20认罪认罚、22缓刑
+
+# 在本院认为之前
 def get伤害结果(word_text):
     死亡_matchObj = re.search(pattern=伤害结果_死亡, string=word_text, flags=0)
     重伤_matchObj = re.search(pattern=伤害结果_重伤, string=word_text, flags=0)
@@ -24,6 +26,7 @@ def get伤害结果(word_text):
         return 轻伤_matchObj.group(1)
     return "无"
 
+# 在本院认为 到 判决如下之间的：
 def get有无赔偿(word_text):
     未赔偿_result = re.search(pattern=未赔偿, string = word_text, flags=0)
     if(未赔偿_result):
@@ -95,10 +98,10 @@ def get立功(word_text):
         return "无"
 
 def get认罪认罚(word_text):
-    if (re.search(pattern=认罪悔罪_不认定, string=word_text, flags=0)):
+    if (re.search(pattern=认罪_不认定, string=word_text, flags=0)):
         return "无"
 
-    result = re.search(pattern=认罪悔罪, string=word_text, flags=0)
+    result = re.search(pattern=认罪, string=word_text, flags=0)
     if (result):
         return "有"
     else:

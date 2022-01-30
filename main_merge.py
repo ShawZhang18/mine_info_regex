@@ -28,7 +28,7 @@ def multiProcessGenJson():
     process_list = []
     from subprocess import STDOUT
     for i in nianfen:
-        p_i = subprocess.Popen(["python", "splitpeichang.py", str(i)],shell=True)
+        p_i = subprocess.Popen(["python", "split2Json.py", str(i)],shell=True)
         process_list.append(p_i)
 
     for i in process_list:

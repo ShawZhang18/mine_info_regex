@@ -1,30 +1,17 @@
-import os
-import re
-import chardet
+from docx_multiThread import *
 
-from regex_expression_danju import *
-from regex_wrapper_danju import *
+def resultToCsvPerProcess(i_nianfen):
+    import csv
+    f_perResult = open('./result/' + str(i_nianfen) + '.csv', 'w', newline='')
 
-list_result_ming = ['案例名','1伤害结果','2被害人人数','3有无赔偿','4赔偿数额','5是否本人赔偿',
-                    '6赔偿时间','7悔罪态度和表现','8谅解','9被告人年龄','10初犯偶犯',
-                    '11累犯或者有前科','12邻里关系和民间矛盾',	'13持械','14手段残忍','15正当防卫或者防卫过当',
-                    '16被害人过错','17自首（自动投案）','18坦白（如实供述）', '19立功', '20认罪认罚',
-                    '21刑罚情况（月）', '22缓刑']
-
-# nianfen = [2015]
-nianfen = [2016, 2017, 2018, 2019, 2020, 2021] #range frome 2016 - 2021
-
-import threading
-import pythoncom
-def resultToCsv(i_nianfen, f_csv, thread_lock):
-    pythoncom.CoInitialize()
     dir_word_files = './' + str(i_nianfen)
     word_files = os.listdir(dir_word_files)
 
+    i = 0
     for file in word_files:
+        i = i + 1
         if file[0] == '~':
             continue
-        # file = "何某某故意伤害一审刑事判决书.doc"
         word = wc.Dispatch("Word.Application")
         project_dir = os.getcwd()
         file_path = project_dir + r"\\" + str(i_nianfen) + r"\\" + file
@@ -38,7 +25,6 @@ def resultToCsv(i_nianfen, f_csv, thread_lock):
         result_everyRow = []
         # 获取每一个doc的名字，直接用word名称作为案件名
         案例名字 = file
-        print("thread name:" + threading.current_thread().name + '   ' + file)
         result_everyRow.append(案例名字)
 
         # 伤害结果
@@ -52,7 +38,7 @@ def resultToCsv(i_nianfen, f_csv, thread_lock):
         result_everyRow.append(get赔偿时间(word_text))
         result_everyRow.append(get悔罪态度和表现(word_text))
         result_everyRow.append(get谅解结果(word_text))
-        result_everyRow.append(get被告人年龄(word_text, int(i)))
+        result_everyRow.append(get被告人年龄(word_text, int(i_nianfen)))
         result_everyRow.append(get初犯偶犯(word_text))
         result_everyRow.append(get累犯(word_text))
         result_everyRow.append(get邻里关系和民间矛盾(word_text))
@@ -70,21 +56,14 @@ def resultToCsv(i_nianfen, f_csv, thread_lock):
             continue
         result_everyRow.append(刑罚情况_result)
         result_everyRow.append(get缓刑(word_text))
-        
-        # break
-        thread_lock.acquire()
-        f_csv.writerow(result_everyRow)
+
         print(result_everyRow)
-        thread_lock.release()
+        f_csv = csv.writer(f_perResult)
+        f_csv.writerow(result_everyRow)
+
+        # print(result_everyRow)
 
 if __name__ == "__main__":
-
-    import csv
-    headers = list_result_ming
-    f = open('qiye.csv','w',newline='')
-    f_csv = csv.writer(f)
-    f_csv.writerow(headers)
-
-    thread_lock = threading.RLock()
-    for i in nianfen:
-        threading.Thread(name=str(i), target=resultToCsv, args=(i, f_csv, thread_lock)).start()
+    import sys
+    i_nianfen = sys.argv[1]
+    resultToCsvPerProcess(sys.argv[1])

@@ -29,7 +29,7 @@ def spitPeichangToJsonPerProcess(i_nianfen):
         result_list = []
         split_words = word_text.split('。')
         for sentence in split_words:
-            if "赔偿" in sentence:
+            if "残忍" in sentence:
                 result_list.append(sentence)
         result_dict[案例名字] = result_list
 

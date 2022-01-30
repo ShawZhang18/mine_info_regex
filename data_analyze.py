@@ -88,21 +88,21 @@ def fenxi(data_fenkuai):
     #     ligong_19 + renzui_20"
 
     # 重伤
-    # f = "months_21 ~ peichang_3 + liangjie_8 + chufan_10 + \
-    # leifan_11 + chixie_13 + canren_14 + fangwei_15 + zishou_17 + tanbai_18 + \
-    # renzui_20"
+    f = "months_21 ~ peichang_3 + liangjie_8 + \
+    chixie_13 + canren_14 + fangwei_15 + zishou_17\
+    "
 
     # 死亡
-    f = "months_21 ~ peichang_3 + liangjie_8 + \
-    leifan_11 + chixie_13 + fangwei_15 + zishou_17 + \
-    renzui_20"
+    # f = "months_21 ~ peichang_3 + liangjie_8 + \
+    # leifan_11 + chixie_13 + fangwei_15 + zishou_17 + \
+    # renzui_20"
 
     # 轻伤
     # f = "months_21 ~ peichang_3 + liangjie_8 + chufan_10 + \
-    # leifan_11 + fangwei_15 + zishou_17 + tanbai_18 + \
-    # renzui_20"
+    # leifan_11 + fangwei_15 + zishou_17 \
+    # "
 
-    # f = "months_21 ~ canren_14"
+    # f = "months_21 ~ peichang_3"
     y, X = patsy.dmatrices(f, data_fenkuai, return_type='dataframe')
     X
     results = sm.OLS(y, X).fit()

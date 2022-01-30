@@ -2,8 +2,8 @@ import os
 import re
 import chardet
 
-from regex_expression_danju import *
-from regex_wrapper_danju import *
+from regex_expression_duanluo import *
+from regex_wrapper import *
 
 list_result_ming = ['案例名','1伤害结果','2被害人人数','3有无赔偿','4赔偿数额','5是否本人赔偿',
                     '6赔偿时间','7悔罪态度和表现','8谅解','9被告人年龄','10初犯偶犯',
